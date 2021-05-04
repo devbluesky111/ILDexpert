@@ -1,6 +1,7 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import Logo from 'app/fuse-layouts/shared-components/Logo';
 import Navigation from 'app/fuse-layouts/shared-components/Navigation';
+import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
 import React from 'react';
 
 function NavbarLayout2() {
@@ -11,7 +12,8 @@ function NavbarLayout2() {
 			</div>
 
 			<FuseScrollbars className="flex h-full items-center">
-				<Navigation className="w-full" layout="horizontal" />
+				<Navigation layout="horizontal" />
+				<UserMenu />
 			</FuseScrollbars>
 		</div>
 	);

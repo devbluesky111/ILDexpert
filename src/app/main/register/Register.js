@@ -3,15 +3,18 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Auth0RegisterTab from './tabs/Auth0RegisterTab';
-import FirebaseRegisterTab from './tabs/FirebaseRegisterTab';
-import JWTRegisterTab from './tabs/JWTRegisterTab';
+import { TextFieldFormsy, SelectFormsy } from '@fuse/core/formsy';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Formsy from 'formsy-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { submitRegister } from 'app/auth/store/registerSlice';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -33,10 +36,31 @@ const useStyles = makeStyles(theme => ({
 
 function Register() {
 	const classes = useStyles();
-	const [selectedTab, setSelectedTab] = useState(0);
+	const dispatch = useDispatch();
+	const register = useSelector(({ auth }) => auth.register);
 
-	function handleTabChange(event, value) {
-		setSelectedTab(value);
+	const [isFormValid, setIsFormValid] = useState(false);
+	const formRef = useRef(null);
+
+	useEffect(() => {
+		if (register.error && (register.error.username || register.error.password || register.error.email)) {
+			formRef.current.updateInputsWithError({
+				...register.error
+			});
+			disableButton();
+		}
+	}, [register.error]);
+
+	function disableButton() {
+		setIsFormValid(false);
+	}
+
+	function enableButton() {
+		setIsFormValid(true);
+	}
+
+	function handleSubmit(model) {
+		dispatch(submitRegister(model));
 	}
 
 	return (
@@ -57,57 +81,142 @@ function Register() {
 					>
 						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
 							<FuseAnimate delay={300}>
-								<div className="flex items-center justif-center mb-32">
-									<img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />
-									<div className="border-l-1 mr-4 w-1 h-40" />
-									<div>
-										<Typography className="text-24 font-800 logo-text" color="inherit">
-											FUSE
-										</Typography>
-										<Typography
-											className="text-16 tracking-widest -mt-8 font-700"
-											color="textSecondary"
-										>
-											REACT
-										</Typography>
-									</div>
+								<div className="flex items-center justify-center mb-32">
+									<img className="logo-icon w-100" src="assets/images/logos/fuse.png" alt="logo" />
 								</div>
 							</FuseAnimate>
+							<div className="w-full">
+								<div className="flex items-center justify-center mb-8">
+									<h1>Sign Up</h1>
+								</div>
+								<Formsy
+									onValidSubmit={handleSubmit}
+									onValid={enableButton}
+									onInvalid={disableButton}
+									ref={formRef}
+									className="flex flex-col justify-center w-full"
+								>
+									<TextFieldFormsy
+										className="mb-16"
+										type="text"
+										name="displayName"
+										label="Display name"
+										validations={{
+											minLength: 4
+										}}
+										validationErrors={{
+											minLength: 'Min character length is 4'
+										}}
+										InputProps={{
+											endAdornment: (
+												<InputAdornment position="end">
+													<Icon className="text-20" color="action">
+														person
+													</Icon>
+												</InputAdornment>
+											)
+										}}
+										variant="outlined"
+										required
+									/>
 
-							<Tabs
-								value={selectedTab}
-								onChange={handleTabChange}
-								variant="fullWidth"
-								className="w-full mb-32"
-							>
-								<Tab
-									icon={
-										<img
-											className="h-40 p-4 bg-black rounded-12"
-											src="assets/images/logos/jwt.svg"
-											alt="firebase"
-										/>
-									}
-									className="min-w-0"
-									label="JWT"
-								/>
-								<Tab
-									icon={
-										<img className="h-40" src="assets/images/logos/firebase.svg" alt="firebase" />
-									}
-									className="min-w-0"
-									label="Firebase"
-								/>
-								<Tab
-									icon={<img className="h-40" src="assets/images/logos/auth0.svg" alt="auth0" />}
-									className="min-w-0"
-									label="Auth0"
-								/>
-							</Tabs>
+									<TextFieldFormsy
+										className="mb-16"
+										type="text"
+										name="email"
+										label="Email"
+										validations="isEmail"
+										validationErrors={{
+											isEmail: 'Please enter a valid email'
+										}}
+										InputProps={{
+											endAdornment: (
+												<InputAdornment position="end">
+													<Icon className="text-20" color="action">
+														email
+													</Icon>
+												</InputAdornment>
+											)
+										}}
+										variant="outlined"
+										required
+									/>
 
-							{selectedTab === 0 && <JWTRegisterTab />}
-							{selectedTab === 1 && <FirebaseRegisterTab />}
-							{selectedTab === 2 && <Auth0RegisterTab />}
+									<TextFieldFormsy
+										className="mb-16"
+										type="password"
+										name="password"
+										label="Password"
+										validations="equalsField:password-confirm"
+										validationErrors={{
+											equalsField: 'Passwords do not match'
+										}}
+										InputProps={{
+											endAdornment: (
+												<InputAdornment position="end">
+													<Icon className="text-20" color="action">
+														vpn_key
+													</Icon>
+												</InputAdornment>
+											)
+										}}
+										variant="outlined"
+										required
+									/>
+
+									<TextFieldFormsy
+										className="mb-16"
+										type="password"
+										name="password-confirm"
+										label="Confirm Password"
+										validations="equalsField:password"
+										validationErrors={{
+											equalsField: 'Passwords do not match'
+										}}
+										InputProps={{
+											endAdornment: (
+												<InputAdornment position="end">
+													<Icon className="text-20" color="action">
+														vpn_key
+													</Icon>
+												</InputAdornment>
+											)
+										}}
+										variant="outlined"
+										required
+									/>
+
+									<SelectFormsy
+										className="my-16"
+										name="related-outlined"
+										label="Who Are You"
+										value="none"
+										validations="equals:none"
+										validationError="Must be None"
+										variant="outlined"
+									>
+										<MenuItem value="none">
+											<em>Please click here</em>
+										</MenuItem>
+										<MenuItem value="training">I am a Pathologist in training (resident or fellow)</MenuItem>
+										<MenuItem value="general">I am a general Pathologist</MenuItem>
+										<MenuItem value="pulmonary">I am a pulmonary Pathologist</MenuItem>
+									</SelectFormsy>
+
+									<Button
+										type="submit"
+										variant="contained"
+										color="primary"
+										className="w-full mx-auto mt-16"
+										aria-label="REGISTER"
+										disabled={!isFormValid}
+										value="legacy"
+									>
+										Register
+									</Button>
+								</Formsy>
+							</div>
+
 						</CardContent>
 
 						<div className="flex flex-col items-center justify-center pb-32">
@@ -126,18 +235,17 @@ function Register() {
 					<div
 						className={clsx(classes.rightSection, 'hidden md:flex flex-1 items-center justify-center p-64')}
 					>
-						<div className="max-w-320">
+						<div className="max-w-500">
 							<FuseAnimate animation="transition.slideUpIn" delay={400}>
 								<Typography variant="h3" color="inherit" className="font-800 leading-tight">
 									Welcome <br />
-									to the <br /> FUSE React!
+									to the <br /> ILDexpert Pilot Study!
 								</Typography>
 							</FuseAnimate>
 
 							<FuseAnimate delay={500}>
 								<Typography variant="subtitle1" color="inherit" className="mt-32">
-									Powerful and professional admin template for Web Applications, CRM, CMS, Admin
-									Panels and more.
+									This study is designed to explore the value of a pattern-based algorithmic mobile application approach to ILD diagnosis.
 								</Typography>
 							</FuseAnimate>
 						</div>

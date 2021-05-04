@@ -4,7 +4,7 @@ import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import FuseSuspense from '@fuse/core/FuseSuspense';
 import { makeStyles } from '@material-ui/core/styles';
 import AppContext from 'app/AppContext';
-import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
+// import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import clsx from 'clsx';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -12,8 +12,7 @@ import { renderRoutes } from 'react-router-config';
 import FooterLayout2 from './components/FooterLayout2';
 import LeftSideLayout2 from './components/LeftSideLayout2';
 import NavbarWrapperLayout2 from './components/NavbarWrapperLayout2';
-import RightSideLayout2 from './components/RightSideLayout2';
-import ToolbarLayout2 from './components/ToolbarLayout2';
+// import ToolbarLayout2 from './components/ToolbarLayout2';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -77,11 +76,11 @@ function Layout2(props) {
 					{config.leftSidePanel.display && <LeftSideLayout2 />}
 
 					<div className="flex flex-1 flex-col overflow-hidden relative">
-						{config.toolbar.display && config.toolbar.position === 'above' && <ToolbarLayout2 />}
+						{/* {config.toolbar.display && config.toolbar.position === 'above' && <ToolbarLayout2 />} */}
 
 						{config.navbar.display && <NavbarWrapperLayout2 />}
 
-						{config.toolbar.display && config.toolbar.position === 'below' && <ToolbarLayout2 />}
+						{/* {config.toolbar.display && config.toolbar.position === 'below' && <ToolbarLayout2 />} */}
 
 						<FuseScrollbars className={classes.content} scrollToTopOnRouteChange>
 							<FuseDialog />
@@ -97,10 +96,8 @@ function Layout2(props) {
 
 						{config.footer.display && config.footer.style === 'fixed' && <FooterLayout2 />}
 
-						<SettingsPanel />
+						{/* <SettingsPanel /> */}
 					</div>
-
-					{config.rightSidePanel.display && <RightSideLayout2 />}
 
 					<FuseMessage />
 				</div>
