@@ -34,7 +34,6 @@ function ProductsHeader(props) {
 					<FuseAnimate animation="transition.slideDownIn" delay={300}>
 						<Paper className="flex items-center w-full max-w-512 px-8 py-4 rounded-8 shadow">
 							<Icon color="action">search</Icon>
-
 							<Input
 								placeholder="Search"
 								className="flex flex-1 mx-8"
