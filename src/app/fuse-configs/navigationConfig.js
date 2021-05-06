@@ -234,84 +234,84 @@ const navigationConfig = [
 			}
 		]
 	},
-	{
-		id: 'auth',
-		title: 'Join Us',
-		type: 'group',
-		icon: 'apps',
-		auth: authRoles.onlyGuest,
-		children: [
-			{
-				id: 'login',
-				title: 'Login',
-				type: 'item',
-				url: '/login',
-				auth: authRoles.onlyGuest,
-				icon: 'lock'
-			},
-			{
-				id: 'register',
-				title: 'Register',
-				type: 'item',
-				url: '/register',
-				auth: authRoles.onlyGuest,
-				icon: 'person_add'
-			},
-			{
-				id: 'logout',
-				title: 'Logout',
-				type: 'item',
-				auth: authRoles.user,
-				url: '/logout',
-				icon: 'exit_to_app'
-			},
-			{
-				id: 'auth-admin-example',
-				title: 'Admin: Auth protected page',
-				type: 'item',
-				url: '/auth/admin-role-example',
-				icon: 'security'
-			},
-			{
-				id: 'only-admin-navigation-item',
-				title: 'Nav item only for Admin',
-				type: 'item',
-				auth: authRoles.admin,
-				url: '/auth/admin-role-example',
-				icon: 'verified_user'
-			},
-			{
-				id: 'auth-staff-example',
-				title: 'Staff: Auth protected page',
-				type: 'item',
-				url: '/auth/staff-role-example',
-				icon: 'security'
-			},
-			{
-				id: 'only-staff-navigation-item',
-				title: 'Nav item only for Staff',
-				type: 'item',
-				auth: authRoles.staff,
-				url: '/auth/staff-role-example',
-				icon: 'verified_user'
-			},
-			{
-				id: 'auth-guest-example',
-				title: 'Guest: Auth protected page',
-				type: 'item',
-				url: '/auth/guest-role-example',
-				icon: 'security'
-			},
-			{
-				id: 'only-guest-navigation-item',
-				title: 'Nav item only for Guest',
-				type: 'item',
-				auth: authRoles.onlyGuest,
-				url: '/auth/guest-role-example',
-				icon: 'verified_user'
-			}
-		]
-	}
+	// {
+	// 	id: 'auth',
+	// 	title: 'Join Us',
+	// 	type: 'group',
+	// 	icon: 'apps',
+	// 	auth: authRoles.onlyGuest,
+	// 	children: [
+	// 		{
+	// 			id: 'login',
+	// 			title: 'Login',
+	// 			type: 'item',
+	// 			url: '/login',
+	// 			auth: authRoles.onlyGuest,
+	// 			icon: 'lock'
+	// 		},
+	// 		{
+	// 			id: 'register',
+	// 			title: 'Register',
+	// 			type: 'item',
+	// 			url: '/register',
+	// 			auth: authRoles.onlyGuest,
+	// 			icon: 'person_add'
+	// 		},
+	// 		{
+	// 			id: 'logout',
+	// 			title: 'Logout',
+	// 			type: 'item',
+	// 			auth: authRoles.user,
+	// 			url: '/logout',
+	// 			icon: 'exit_to_app'
+	// 		},
+	// 		{
+	// 			id: 'auth-admin-example',
+	// 			title: 'Admin: Auth protected page',
+	// 			type: 'item',
+	// 			url: '/auth/admin-role-example',
+	// 			icon: 'security'
+	// 		},
+	// 		{
+	// 			id: 'only-admin-navigation-item',
+	// 			title: 'Nav item only for Admin',
+	// 			type: 'item',
+	// 			auth: authRoles.admin,
+	// 			url: '/auth/admin-role-example',
+	// 			icon: 'verified_user'
+	// 		},
+	// 		{
+	// 			id: 'auth-staff-example',
+	// 			title: 'Staff: Auth protected page',
+	// 			type: 'item',
+	// 			url: '/auth/staff-role-example',
+	// 			icon: 'security'
+	// 		},
+	// 		{
+	// 			id: 'only-staff-navigation-item',
+	// 			title: 'Nav item only for Staff',
+	// 			type: 'item',
+	// 			auth: authRoles.staff,
+	// 			url: '/auth/staff-role-example',
+	// 			icon: 'verified_user'
+	// 		},
+	// 		{
+	// 			id: 'auth-guest-example',
+	// 			title: 'Guest: Auth protected page',
+	// 			type: 'item',
+	// 			url: '/auth/guest-role-example',
+	// 			icon: 'security'
+	// 		},
+	// 		{
+	// 			id: 'only-guest-navigation-item',
+	// 			title: 'Nav item only for Guest',
+	// 			type: 'item',
+	// 			auth: authRoles.onlyGuest,
+	// 			url: '/auth/guest-role-example',
+	// 			icon: 'verified_user'
+	// 		}
+	// 	]
+	// }
 ];
 
 export default navigationConfig;
