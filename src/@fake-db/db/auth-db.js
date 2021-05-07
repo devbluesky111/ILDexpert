@@ -22,33 +22,29 @@ const authDB = {
 				email: 'admin',
 				settings: {
 					layout: {
-						style: 'layout1',
+						style: 'layout2',
 						config: {
+							mode: 'fullwidth',
 							scroll: 'content',
 							navbar: {
-								display: true,
-								folded: true,
-								position: 'left'
+								display: true
 							},
 							toolbar: {
 								display: true,
-								style: 'fixed',
 								position: 'below'
 							},
 							footer: {
 								display: true,
-								style: 'fixed',
-								position: 'below'
-							},
-							mode: 'fullwidth'
+								style: 'fixed'
+							}
 						}
 					},
 					customScrollbars: true,
 					theme: {
-						main: 'defaultDark',
-						navbar: 'defaultDark',
-						toolbar: 'defaultDark',
-						footer: 'defaultDark'
+						main: 'greeny',
+						navbar: 'mainThemeDark',
+						toolbar: 'mainThemeDark',
+						footer: 'mainThemeDark'
 					}
 				},
 				shortcuts: ['calendar', 'mail', 'contacts']
@@ -67,7 +63,7 @@ const authDB = {
 					layout: {
 						style: 'layout2',
 						config: {
-							mode: 'boxed',
+							mode: 'fullwidth',
 							scroll: 'content',
 							navbar: {
 								display: true

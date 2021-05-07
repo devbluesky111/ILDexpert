@@ -6,6 +6,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
 import React from 'react';
 
 function ImageDialog(props) {
@@ -28,6 +31,7 @@ function ImageDialog(props) {
 					</Typography>
 					<IconButton
 						className="min-w-auto"
+						onClick={props.onClose}
 					>
 						<Icon>close</Icon>
 					</IconButton>
@@ -36,16 +40,30 @@ function ImageDialog(props) {
 
 			<DialogContent classes={{ root: 'p-0' }}>
 				<div className="mb-16">
-					<div className="flex items-center justify-content-center p-12">
-						<div className="flex justify-content-center">
-							<img src="assets/images/calendar/autumn.jpg" alt="autumn.jpg" style={{width:'auto',height:'800px',margin:'auto'}}/>
+					<div className="px-12">
+						<div className="flex justify-center">
+							<RadioGroup
+								className="mt-16"
+								name="reading case"
+								variant="outlined"
+								color="primary"
+								row
+								// validations="equals:female"
+								// validationError="Only ladies are accepted"
+								required
+							>
+								<FormControlLabel value="pretest" control={<Radio color="primary"/>} label="Pretest reading" style={{marginRight:"100px"}}/>
+								<FormControlLabel value="posttest" control={<Radio color="primary"/>} label="Posttest reading"/>
+							</RadioGroup>							
+						</div>
+					</div>
+					<div className="p-6">
+						<div className="flex justify-center">
+							{/* <img src={props.imageURL} alt="autumn.jpg" style={{width:'auto',height:'780px'}}/> */}
+							<img src="assets/images/calendar/autumn.jpg" alt="autumn.jpg" style={{width:'auto',height:'780px'}}/>
 						</div>
 					</div>
 					<Divider className="mx-24" />
-				</div>
-
-				<div className="px-16 sm:px-24">
-					Content 2 here....					
 				</div>
 			</DialogContent>
 		</Dialog>

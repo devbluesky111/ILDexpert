@@ -165,7 +165,7 @@ function Login() {
 										Login
 									</Button>
 								</Formsy>
-
+{/* 
 								<table className="text-center w-full mt-32">
 									<thead>
 										<tr>
@@ -214,7 +214,7 @@ function Login() {
 											</td>
 										</tr>
 									</tbody>
-								</table>
+								</table> */}
 							</div>
 
 						</CardContent>

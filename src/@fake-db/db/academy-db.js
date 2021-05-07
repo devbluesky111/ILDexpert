@@ -428,25 +428,25 @@ const academyDB = {
 		{
 			id: 0,
 			value: 'web',
-			label: 'Web',
+			label: 'Case xx',
 			color: blue[500]
 		},
 		{
 			id: 1,
 			value: 'firebase',
-			label: 'Firebase',
+			label: 'Case xx',
 			color: amber[500]
 		},
 		{
 			id: 2,
 			value: 'cloud',
-			label: 'Cloud',
+			label: 'Case xx',
 			color: blueGrey[500]
 		},
 		{
 			id: 3,
 			value: 'android',
-			label: 'Android',
+			label: 'Case xx',
 			color: green[500]
 		}
 	],

@@ -191,8 +191,8 @@ function Register() {
 										name="related-outlined"
 										label="Who Are You"
 										value="none"
-										validations="equals:none"
-										validationError="Must be None"
+										// validations="equals:none"
+										// validationError="Must be None"
 										variant="outlined"
 									>
 										<MenuItem value="none">
