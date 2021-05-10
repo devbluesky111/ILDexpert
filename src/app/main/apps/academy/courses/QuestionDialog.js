@@ -25,7 +25,8 @@ function QuestionDialog(props) {
 	}
 
 	function handleSubmit(model) {
-		console.log('modal', model);
+		console.log('model===>', model);
+		props.onClose();
 	}
 
 	return (
@@ -61,7 +62,7 @@ function QuestionDialog(props) {
 							</div>
 							<RadioGroupFormsy
 								className="my-8"
-								name="question_2"
+								name="question_one"
 								variant="outlined"
 								color="primary"
 								value="Alveolar proteinosis"
@@ -101,7 +102,7 @@ function QuestionDialog(props) {
 							</div>
 							<RadioGroupFormsy
 								className="my-8"
-								name="question_2"
+								name="question_two"
 								variant="outlined"
 								color="primary"
 								value="medium"
