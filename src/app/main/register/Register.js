@@ -13,8 +13,10 @@ import Icon from '@material-ui/core/Icon';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Formsy from 'formsy-react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { submitRegister } from 'app/auth/store/registerSlice';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import Backend from '@utils/BackendUrl';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 function Register() {
 	const classes = useStyles();
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	const register = useSelector(({ auth }) => auth.register);
 
 	const [isFormValid, setIsFormValid] = useState(false);
@@ -59,8 +61,13 @@ function Register() {
 		setIsFormValid(true);
 	}
 
-	function handleSubmit(model) {
-		dispatch(submitRegister(model));
+	const handleSubmit = async (model) => {
+		const res = await axios.post(Backend.URL + '/add_user', model, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
+		if(res.data.status === 'fail') {
+		  swal("Oops!", "Email duplicated. Please use other email!", "error");
+		} else {
+		  window.location.href = process.env.PUBLIC_URL + "/login";
+		}
 	}
 
 	return (
@@ -99,8 +106,8 @@ function Register() {
 									<TextFieldFormsy
 										className="mb-16"
 										type="text"
-										name="displayName"
-										label="Display name"
+										name="userName"
+										label="User Name"
 										validations={{
 											minLength: 4
 										}}
@@ -188,11 +195,11 @@ function Register() {
 
 									<SelectFormsy
 										className="my-16"
-										name="related-outlined"
-										label="Who Are You"
+										name="identity"
+										label="Study Level"
 										value="none"
 										// validations="equals:none"
-										// validationError="Must be None"
+										// validationError="Must not be None"
 										variant="outlined"
 									>
 										<MenuItem value="none">
