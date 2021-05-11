@@ -78,7 +78,7 @@ function QuestionDialog(props) {
 												enter={{
 													animation: 'transition.slideUpBigIn'
 												}}
-												className="flex flex-wrap py-24"
+												className="flex flex-wrap pt-6 pb-24"
 											>
 												<div className="grid grid-cols-3 gap-4 my-2">
 													{props.questionOneData.map(question => {
@@ -120,7 +120,7 @@ function QuestionDialog(props) {
 												enter={{
 													animation: 'transition.slideUpBigIn'
 												}}
-												className="flex flex-wrap py-12"
+												className="flex flex-wrap pt-6 pb-12"
 											>
 												<div className="grid grid-cols-3 gap-4 my-2">
 													{props.questionTwoData.map(question => {
@@ -147,7 +147,7 @@ function QuestionDialog(props) {
 								type="submit"
 								variant="contained"
 								color="primary"
-								className="w-full mx-auto mt-16"
+								className="w-full mx-auto my-8"
 								aria-label="REGISTER"
 								disabled={!isFormValid}
 								value="legacy"

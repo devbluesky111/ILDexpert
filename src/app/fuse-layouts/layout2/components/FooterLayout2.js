@@ -1,11 +1,10 @@
 import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-// import PoweredByLinks from 'app/fuse-layouts/shared-components/PoweredByLinks';
-// import PurchaseButton from 'app/fuse-layouts/shared-components/PurchaseButton';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectFooterTheme } from 'app/store/fuse/settingsSlice';
+import { Icon } from '@material-ui/core';
 
 function FooterLayout2(props) {
 	const footerTheme = useSelector(selectFooterTheme);
@@ -20,13 +19,11 @@ function FooterLayout2(props) {
 			>
 				<Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
 					<div className="flex flex-grow flex-shrink-0">
-						{/* <PurchaseButton className="mx-4" /> */}
-						<span>Some links here</span>
+						<a href="https://www.6patterns.org/" style={{textDecoration:'none',color:'#42A5F5'}}>Go to 6patterns.org</a>
 					</div>
 
 					<div className="flex flex-grow flex-shrink-0 px-12 justify-end">
-						{/* <PoweredByLinks /> */}
-						<span>Some links here too</span>
+						<a href="mailto:kolesliemd@gmail.com"><Icon style={{color:'#42A5F5'}}>email</Icon></a>
 					</div>
 				</Toolbar>
 			</AppBar>

@@ -111,11 +111,11 @@ function Tests(props) {
 			<div
 				className={clsx(
 					classes.header,
-					'relative overflow-hidden flex flex-col flex-shrink-0 items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-288'
+					'relative overflow-hidden flex flex-col flex-shrink-0 items-center justify-center text-center p-16 sm:p-24 h-188'
 				)}
 			>
 				<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
-					<Typography color="inherit" className="text-24 sm:text-40 font-light">
+					<Typography color="inherit" className="text-24 sm:text-32 font-light">
 						WELCOME TO ILDexpert Pilot Study!
 					</Typography>
 				</FuseAnimate>
@@ -128,7 +128,7 @@ function Tests(props) {
 				</FuseAnimate>
 				<Icon className={classes.headerIcon}> school </Icon>
 			</div>
-			<div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-24">
+			<div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-16">
 				{useMemo(
 					() =>
 						cases &&
