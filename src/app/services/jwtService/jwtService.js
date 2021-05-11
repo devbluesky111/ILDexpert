@@ -69,11 +69,11 @@ class JwtService extends FuseUtils.EventEmitter {
 					}
 				})
 				.then(response => {
-					if (response.data.data.user) {
-						this.setSession(response.data.data.access_token);
-						resolve(response.data.data.user);
+					if (response.data.user) {
+						this.setSession(response.data.access_token);
+						resolve(response.data.user);
 					} else {
-						reject(response.data.data.error);
+						reject(response.data.error);
 					}
 				});
 		});

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import firebase from 'firebase/app';
 import 'firebase/auth';
 import history from '@history';
 import _ from '@lodash';
@@ -8,6 +7,8 @@ import { showMessage } from 'app/store/fuse/messageSlice';
 import auth0Service from 'app/services/auth0Service';
 import firebaseService from 'app/services/firebaseService';
 import jwtService from 'app/services/jwtService';
+import axios from 'axios';
+import Backend from '@utils/BackendUrl';
 
 export const setUserDataAuth0 = tokenData => async dispatch => {
 	const user = {
@@ -23,48 +24,6 @@ export const setUserDataAuth0 = tokenData => async dispatch => {
 				tokenData.user_metadata && tokenData.user_metadata.shortcuts ? tokenData.user_metadata.shortcuts : []
 		}
 	};
-
-	return dispatch(setUserData(user));
-};
-
-export const setUserDataFirebase = (user, authUser) => async dispatch => {
-	if (
-		user &&
-		user.data &&
-		user.data.settings &&
-		user.data.settings.theme &&
-		user.data.settings.layout &&
-		user.data.settings.layout.style
-	) {
-		// Set user data but do not update
-		return dispatch(setUserData(user));
-	}
-
-	// Create missing user settings
-	return dispatch(createUserSettingsFirebase(authUser));
-};
-
-export const createUserSettingsFirebase = authUser => async (dispatch, getState) => {
-	const guestUser = getState().auth.user;
-	const fuseDefaultSettings = getState().fuse.settings.defaults;
-	const { currentUser } = firebase.auth();
-
-	/**
-	 * Merge with current Settings
-	 */
-	const user = _.merge({}, guestUser, {
-		uid: authUser.uid,
-		from: 'firebase',
-		role: ['admin'],
-		data: {
-			displayName: authUser.displayName,
-			email: authUser.email,
-			settings: { ...fuseDefaultSettings }
-		}
-	});
-	currentUser.updateProfile(user.data);
-
-	dispatch(updateUserData(user));
 
 	return dispatch(setUserData(user));
 };
@@ -117,24 +76,13 @@ export const logoutUser = () => async (dispatch, getState) => {
 		// is guest
 		return null;
 	}
-
-	history.push({
-		pathname: '/'
-	});
-
-	switch (user.from) {
-		case 'firebase': {
-			firebaseService.signOut();
-			break;
-		}
-		case 'auth0': {
-			auth0Service.logout();
-			break;
-		}
-		default: {
-			jwtService.logout();
-		}
+	console.log('log out..........');
+	const res = await axios.post(Backend.URL + '/logout', {params: 'logout'}, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
+	if(res.data.status === 'success') {
+		console.log('successed.........');
+		window.location.href = process.env.PUBLIC_URL + "/";
 	}
+	console.log('not successed........');
 
 	dispatch(setInitialSettings());
 
@@ -189,7 +137,7 @@ export const updateUserData = user => async (dispatch, getState) => {
 const initialState = {
 	role: [], // guest
 	data: {
-		displayName: 'John Doe',
+		displayName: 'Get Started',
 		photoURL: 'assets/images/avatars/Velazquez.jpg',
 		email: 'johndoe@withinpixels.com',
 		shortcuts: ['calendar', 'mail', 'contacts', 'todo']

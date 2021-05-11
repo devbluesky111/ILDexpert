@@ -14,7 +14,10 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Formsy from 'formsy-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitLogin } from 'app/auth/store/loginSlice';
+import { setUserData } from 'app/auth/store/userSlice';
+import axios from 'axios';
+import Backend from '@utils/BackendUrl';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -61,8 +64,93 @@ function Login() {
 		setIsFormValid(true);
 	}
 
-	function handleSubmit(model) {
-		dispatch(submitLogin(model));
+	const handleSubmit = async (model) => {
+		const res = await axios.post(Backend.URL + '/login', model, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
+		if(res.data.status === 'fail') {
+			swal("Sorry!", "Your email and password does not match. \n Please try again!", "warning");
+		} else {
+			let user_data, user;
+			user_data = res.data.data[0];
+			if(user_data.role === 'staff') {
+				user = {
+					password: user_data.password,
+					role: 'User',
+					data: {
+						displayName: user_data.name,
+						photoURL: 'assets/images/avatars/Arnold.jpg',
+						email: user_data.email,
+						settings: {
+						layout: {
+							style: 'layout2',
+							config: {
+							mode: 'fullwidth',
+							scroll: 'content',
+							navbar: {
+								display: true
+							},
+							toolbar: {
+								display: true,
+								position: 'below'
+							},
+							footer: {
+								display: true,
+								style: 'fixed'
+							}
+							}
+						},
+						customScrollbars: true,
+						theme: {
+							main: 'greeny',
+							navbar: 'mainThemeDark',
+							toolbar: 'mainThemeDark',
+							footer: 'mainThemeDark'
+						}
+						},
+						shortcuts: ['calendar', 'mail', 'contacts', 'todo']
+					}
+				}
+			}
+			if(user_data.role === 'admin') {
+				user = {
+					password: user_data.password,
+					role: 'admin',
+					data: {
+						displayName: user_data.name,
+						photoURL: 'assets/images/avatars/Abbott.jpg',
+						email: user_data.email,
+						settings: {
+						layout: {
+							style: 'layout2',
+							config: {
+							mode: 'fullwidth',
+							scroll: 'content',
+							navbar: {
+								display: true
+							},
+							toolbar: {
+								display: true,
+								position: 'below'
+							},
+							footer: {
+								display: true,
+								style: 'fixed'
+							}
+							}
+						},
+						customScrollbars: true,
+						theme: {
+							main: 'greeny',
+							navbar: 'mainThemeDark',
+							toolbar: 'mainThemeDark',
+							footer: 'mainThemeDark'
+						}
+						},
+						shortcuts: ['calendar', 'mail', 'contacts', 'todo']
+					}
+				}		
+			}
+			dispatch(setUserData(user));
+		}
 	}
 
 	return (
