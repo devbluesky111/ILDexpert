@@ -4,12 +4,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Divider from '@material-ui/core/Divider';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { RadioGroupFormsy } from '@fuse/core/formsy';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Formsy from 'formsy-react';
 import Button from '@material-ui/core/Button';
+import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 
 function QuestionDialog(props) {
 
@@ -25,9 +26,10 @@ function QuestionDialog(props) {
 	}
 
 	function handleSubmit(model) {
-		console.log('model===>', model);
+		console.log('model===>', model, props.questionOneData.id);
 		props.onClose();
 	}
+
 
 	return (
 		<Dialog
@@ -47,9 +49,9 @@ function QuestionDialog(props) {
 				</Toolbar>
 			</AppBar>
 
-			<DialogContent classes={{ root: 'p-32' }}>
+			<DialogContent classes={{ root: 'p-16' }}>
 				<div className="mb-16">
-					<div className="m-32">
+					<div className="mx-32">
 						<Formsy
 							onValidSubmit={handleSubmit}
 							onValid={enableButton}
@@ -57,62 +59,88 @@ function QuestionDialog(props) {
 							ref={formRef}
 							className="flex flex-col justify-center w-full"
 						>
-							<div className="text-24 mb-8">
-								What is your favored diagnosis for Case XX?			
+							<div className="text-20">
+								What is your favored diagnosis for {props.selected.selectedButtonSubject}?			
 							</div>
 							<RadioGroupFormsy
-								className="my-8"
+								className="mb-4"
 								name="question_one"
 								variant="outlined"
 								color="primary"
 								value="Alveolar proteinosis"
 								required
 							>
-								<div className="grid grid-flow-col grid-cols-4 grid-rows-6 gap-4">
-									<FormControlLabel value="Alveolar proteinosis" control={<Radio color="primary"/>} label="Alveolar proteinosis"/>
-									<FormControlLabel value="Aspiration" control={<Radio color="primary"/>} label="Aspiration"/>
-									<FormControlLabel value="Autoimmune diseas" control={<Radio color="primary"/>} label="Autoimmune diseas"/>
-									<FormControlLabel value="Constrictive bronchiolitis" control={<Radio color="primary"/>} label="Constrictive bronchiolitis"/>
-									<FormControlLabel value="DIffuse alveolar damage ddx" control={<Radio color="primary"/>} label="DIffuse alveolar damage ddx"/>
-									<FormControlLabel value="DIffuse alveolar hemorrhage ddx" control={<Radio color="primary"/>} label="DIffuse alveolar hemorrhage ddx"/>
-									<FormControlLabel value="DIffuse amyloidosis" control={<Radio color="primary"/>} label="DIffuse amyloidosis"/>
-									<FormControlLabel value="Drug/medication toxicity" control={<Radio color="primary"/>} label="Drug/medication toxicity"/>
-									<FormControlLabel value="Eosinophilic granulomatosis with polyangiitis (Churg-Strauss)" control={<Radio color="primary"/>} label="Eosinophilic granulomatosis with polyangiitis (Churg-Strauss)"/>
-									<FormControlLabel value="Granulomatosis with polyangiitis (Wegener)" control={<Radio color="primary"/>} label="Granulomatosis with polyangiitis (Wegener)"/>
-									<FormControlLabel value="Granulomatous lymphocytic interstitial pneumonia" control={<Radio color="primary"/>} label="Granulomatous lymphocytic interstitial pneumonia"/>
-									<FormControlLabel value="Hot tub lung" control={<Radio color="primary"/>} label="Hot tub lung"/>
-									<FormControlLabel value="Hypersensitivity pneumonitis, cellular form" control={<Radio color="primary"/>} label="Hypersensitivity pneumonitis, cellular form"/>
-									<FormControlLabel value="Hypersensitivity pneumonitis, fibrotic form" control={<Radio color="primary"/>} label="Hypersensitivity pneumonitis, fibrotic form"/>
-									<FormControlLabel value="IgG4 related disease" control={<Radio color="primary"/>} label="IgG4 related disease"/>
-									<FormControlLabel value="Infection" control={<Radio color="primary"/>} label="Infection"/>
-									<FormControlLabel value="Langerhans cell histiocytosis, cellular" control={<Radio color="primary"/>} label="Langerhans cell histiocytosis, cellular"/>
-									<FormControlLabel value="Langerhans cell histiocytosis, fibrotic" control={<Radio color="primary"/>} label="Langerhans cell histiocytosis, fibrotic"/>
-									<FormControlLabel value="Nonspecific interstitial pneumonia (NSIP), cellular" control={<Radio color="primary"/>} label="Nonspecific interstitial pneumonia (NSIP), cellular"/>
-									<FormControlLabel value="Nonspecific interstitial pneumonia (NSIP), fibrotic" control={<Radio color="primary"/>} label="Nonspecific interstitial pneumonia (NSIP), fibrotic"/>
-									<FormControlLabel value="Pulmonary arterial hypertension" control={<Radio color="primary"/>} label="Pulmonary arterial hypertension"/>
-									<FormControlLabel value="Sarcoidosis" control={<Radio color="primary"/>} label="Sarcoidosis"/>
-									<FormControlLabel value="Usual interstitial pneumonia (UIP)" control={<Radio color="primary"/>} label="Usual interstitial pneumonia (UIP)"/>
-									<FormControlLabel value="Other" control={<Radio color="primary"/>} label="Other"/>
-								</div>
-								
+								{useMemo(
+									() =>
+										props.questionOneData &&
+										(props.questionOneData.length > 0 ? (
+											<FuseAnimateGroup
+												enter={{
+													animation: 'transition.slideUpBigIn'
+												}}
+												className="flex flex-wrap py-24"
+											>
+												<div className="grid grid-cols-3 gap-4 my-2">
+													{props.questionOneData.map(question => {
+														return (
+															<div key={question.id}>
+																<FormControlLabel value={question.question_one} control={<Radio color="primary"/>} label={question.question_one} />
+															</div>
+														);
+													})}
+												</div>
+											</FuseAnimateGroup>
+										) : (
+											<div className="flex flex-1 items-center justify-center">
+												<Typography color="textSecondary" className="text-24 my-24">
+													No questions found!
+												</Typography>
+											</div>
+										)),
+									[props]
+								)}
 							</RadioGroupFormsy>
 
-							<div className="text-24 mt-16">
-								What is your level of diagnostic confidence for Case xx? 
+							<div className="text-20 mt-4">
+								What is your level of diagnostic confidence for {props.selected.selectedButtonSubject}? 
 							</div>
 							<RadioGroupFormsy
-								className="my-8"
+								className="my-4"
 								name="question_two"
 								variant="outlined"
 								color="primary"
-								value="medium"
-								// validations="equals:female"
-								// validationError="Only ladies are accepted"
+								value="Medium"
 								required
 							>
-								<FormControlLabel value="low" control={<Radio color="primary"/>} label="Low"/>
-								<FormControlLabel value="medium" control={<Radio color="primary"/>} label="Medium"/>
-								<FormControlLabel value="high" control={<Radio color="primary"/>} label="High"/>
+								{useMemo(
+									() =>
+										props.questionTwoData &&
+										(props.questionTwoData.length > 0 ? (
+											<FuseAnimateGroup
+												enter={{
+													animation: 'transition.slideUpBigIn'
+												}}
+												className="flex flex-wrap py-12"
+											>
+												<div className="grid grid-cols-3 gap-4 my-2">
+													{props.questionTwoData.map(question => {
+														return (
+															<div key={question.id}>
+																<FormControlLabel value={question.question_two} control={<Radio color="primary"/>} label={question.question_two} />
+															</div>
+														);
+													})}
+												</div>
+											</FuseAnimateGroup>
+										) : (
+											<div className="flex flex-1 items-center justify-center">
+												<Typography color="textSecondary" className="text-24 my-24">
+													No questions found!
+												</Typography>
+											</div>
+										)),
+									[props]
+								)}
 							</RadioGroupFormsy>
 
 							<Button
