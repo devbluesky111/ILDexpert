@@ -1,6 +1,5 @@
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
-import _ from '@lodash';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -11,12 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import reducer from '../store';
-import { getCategories, selectCategories } from '../store/categoriesSlice';
-import { getCourses, selectCourses } from '../store/coursesSlice';
+import Backend from '@utils/BackendUrl';
+import axios from 'axios';
 import ImageDialog from './ImageDialog';
 import QuestionDialog from './QuestionDialog';
+
 
 const useStyles = makeStyles(theme => ({
 	header: {
@@ -40,26 +39,42 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Tests(props) {
-	const dispatch = useDispatch();
-	const courses = useSelector(selectCourses);
-	const categories = useSelector(selectCategories);
 
 	const classes = useStyles(props);
-	// const theme = useTheme();
-	const [filteredData, setFilteredData] = useState(null);
-	const [searchText] = useState('');
-	const [selectedCategory] = useState('all');
 	const [imageModalShow, setImageModalShow] = useState(false);
 	const [imageModalStartTime, setImageModalStartTime] = useState('');
 	const [imageModalEndTime, setImageModalEndTime] = useState('');
 	const [questionModalShow, setQuestionModalShow] = useState(false);
 	const [questionModalStartTime, setQuestionModalStartTime] = useState('');
 	const [questionModalEndTime, setQuestionModalEndTime] = useState('');
-	// const [selectedCard, setSelectedCard] = useState({imageURL:'',id:''});
+	const [cases, setCases] = useState([]);
+	const [selectedCard, setSelectedCard] = useState({selectedId:'',selectedSubject:'',selectedApiURL:''});
+	const [selectedButton, setSelectedButton] = useState({selectedButtonId:'',selectedButtonSubject:''});
+	const [questionOnes, setQuestionOnes] = useState([]);
+	const [questionTwos, setQuestionTwos] = useState([]);
+
+
+	const init = async () => {
+		// setLoading(true);
+		const res = await axios.post(Backend.URL + '/get_cases', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
+		const res_one = await axios.post(Backend.URL + '/get_question_one', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
+		const res_two = await axios.post(Backend.URL + '/get_question_two', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
+		setCases(res.data);
+		setQuestionOnes(res_one.data);
+		setQuestionTwos(res_two.data);
+		// setLoading(false);
+	}
+	// console.log('question_one', questionOnes);
+	// console.log('question_two', questionTwos);
+
+	useEffect(() => {
+		init();
+	}, []);
+
 	// Handle image showing time
-	const handleImageModalOpen = (url, id) => {
+	const handleImageModalOpen = (selectedId, selectedSubject, selectedApiURL) => {
 		setImageModalStartTime(new Date());
-		// setSelectedCard({url, id})
+		setSelectedCard({...selectedId, ...selectedSubject, ...selectedApiURL});
 		setImageModalShow(true);
 	};
 	const handleImageModalClose = () => {
@@ -75,8 +90,9 @@ function Tests(props) {
 	}
 
 	// Handle multi-choice modal showing time
-	const handleQuestionModalOpen = () => {
+	const handleQuestionModalOpen = (selectedButtonId, selectedButtonSubject) => {
 		setQuestionModalStartTime(new Date());
+		setSelectedButton({...selectedButtonId, ...selectedButtonSubject});
 		setQuestionModalShow(true);
 	};
 	const handleQuestionModalClose = () => {
@@ -89,30 +105,6 @@ function Tests(props) {
 		setQuestionModalStartTime(null);
 		setQuestionModalEndTime(null);
 	}
-
-	useEffect(() => {
-		dispatch(getCategories());
-		dispatch(getCourses());
-	}, [dispatch]);
-
-	useEffect(() => {
-		function getFilteredArray() {
-			if (searchText.length === 0 && selectedCategory === 'all') {
-				return courses;
-			}
-
-			return _.filter(courses, item => {
-				if (selectedCategory !== 'all' && item.category !== selectedCategory) {
-					return false;
-				}
-				return item.title.toLowerCase().includes(searchText.toLowerCase());
-			});
-		}
-
-		if (courses) {
-			setFilteredData(getFilteredArray());
-		}
-	}, [courses, searchText, selectedCategory]);
 
 	return (
 		<div className="flex flex-col flex-auto flex-shrink-0 w-full">
@@ -139,35 +131,32 @@ function Tests(props) {
 			<div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-24">
 				{useMemo(
 					() =>
-						filteredData &&
-						(filteredData.length > 0 ? (
+						cases &&
+						(cases.length > 0 ? (
 							<FuseAnimateGroup
 								enter={{
 									animation: 'transition.slideUpBigIn'
 								}}
 								className="flex flex-wrap py-24"
 							>
-								{filteredData.map(course => {
-									const category = categories.find(_cat => _cat.value === course.category);
+								{cases.map(course => {
 									return (
 										<div className="w-full pb-24 sm:w-1/2 lg:w-1/3 sm:p-16" key={course.id}>
-											<Card className="flex flex-col h-256 rounded-8 shadow" onClick={handleImageModalOpen}>
+											<Card className="flex flex-col h-256 rounded-8 shadow" onClick={() => handleImageModalOpen({selectedId:course.id, selectedSubject:course.subject, selectedApiURL:course.apiURL})}>
 												<div
 													className="flex flex-shrink-0 items-center justify-between px-24 h-40"
 													style={{
 														background: '#607d8b',
 														color: '#FFFFFF'
-														// background: category.color,
-														// color: theme.palette.getContrastText(category.color)
 													}}
 												>
 													<Typography className="font-medium truncate" color="inherit">
-														{category.label}
+														{course.subject}
 													</Typography>
 												</div>
 												<CardMedia
 													className={classes.media}
-													image="assets/images/calendar/autumn.jpg"
+													image={Backend.URL +'/cases/' + course.thumbnailURL}
 													title="Paella dish"
 													alt="product"
 												/>
@@ -186,7 +175,7 @@ function Tests(props) {
 														className="whitespace-nowrap w-full"
 														variant="contained"
 														color="secondary"
-														onClick={handleQuestionModalOpen}
+														onClick={() => handleQuestionModalOpen({selectedButtonId:course.id, selectedButtonSubject:course.subject})}
 													>
 														<span>DIAGNOSIS</span>
 													</Button>
@@ -203,19 +192,22 @@ function Tests(props) {
 								</Typography>
 							</div>
 						)),
-					[categories, filteredData, classes.media]
+					[cases, classes.media]
 				)}
 			</div>
 			{/* image modal */}
 			<ImageDialog
 				open={imageModalShow} 
 				onClose={handleImageModalClose}
-				// imageURL={selectedCard.imageURL}
+				selected={selectedCard}
 			/>
 			{/* question modal */}
 			<QuestionDialog
 				open={questionModalShow}
 				onClose={handleQuestionModalClose}
+				questionOneData={questionOnes}
+				questionTwoData={questionTwos}
+				selected={selectedButton}
 			/>
 		</div>
 	);

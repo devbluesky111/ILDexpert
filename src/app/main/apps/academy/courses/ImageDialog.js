@@ -27,7 +27,7 @@ function ImageDialog(props) {
 			<AppBar position="static" className="shadow-md">
 				<Toolbar className="flex w-full justify-between">
 					<Typography variant="subtitle1" color="inherit">
-						Case One
+						{props.selected.selectedSubject}
 					</Typography>
 					<IconButton
 						className="min-w-auto"
@@ -59,8 +59,7 @@ function ImageDialog(props) {
 					</div>
 					<div className="p-6">
 						<div className="flex justify-center">
-							{/* <img src={props.imageURL} alt="autumn.jpg" style={{width:'auto',height:'780px'}}/> */}
-							<img src="assets/images/calendar/autumn.jpg" alt="autumn.jpg" style={{width:'auto',height:'780px'}}/>
+							<img src={props.selected.selectedApiURL} alt={props.selected.selectedSubject} style={{width:'auto',height:'780px'}}/>
 						</div>
 					</div>
 					<Divider className="mx-24" />
