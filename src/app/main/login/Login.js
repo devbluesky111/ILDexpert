@@ -104,7 +104,7 @@ function Login() {
 										type="text"
 										name="email"
 										label="Username/Email"
-										value="admin"
+										value="aaaa"
 										validations={{
 											minLength: 4
 										}}
@@ -129,7 +129,7 @@ function Login() {
 										type="password"
 										name="password"
 										label="Password"
-										value="admin"
+										value="123456789"
 										validations={{
 											minLength: 4
 										}}
@@ -165,56 +165,6 @@ function Login() {
 										Login
 									</Button>
 								</Formsy>
-{/* 
-								<table className="text-center w-full mt-32">
-									<thead>
-										<tr>
-											<th>
-												<Typography className="font-600" color="textSecondary">
-													Role
-												</Typography>
-											</th>
-											<th>
-												<Typography className="font-600" color="textSecondary">
-													Username
-												</Typography>
-											</th>
-											<th>
-												<Typography className="font-600" color="textSecondary">
-													Password
-												</Typography>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												<Typography className="font-600" color="textSecondary">
-													Admin
-												</Typography>
-											</td>
-											<td>
-												<Typography>admin</Typography>
-											</td>
-											<td>
-												<Typography>admin</Typography>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<Typography className="font-600" color="textSecondary">
-													Staff
-												</Typography>
-											</td>
-											<td>
-												<Typography>staff</Typography>
-											</td>
-											<td>
-												<Typography>staff</Typography>
-											</td>
-										</tr>
-									</tbody>
-								</table> */}
 							</div>
 
 						</CardContent>
