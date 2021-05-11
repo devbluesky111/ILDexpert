@@ -164,10 +164,10 @@ function CaseDetail(props) {
 						className="mt-24"
 						component={Link}
 						variant="outlined"
-						to="/apps/cases/posts"
+						to="/apps/cases/items"
 						color="inherit"
 					>
-						Go to Case Posts Page
+						Go to New Cases Page
 					</Button>
 				</div>
 			</FuseAnimate>

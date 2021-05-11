@@ -50,47 +50,28 @@ const navigationConfig = [
 				]
 			},
 			{
-				id: 'question1',
-				title: 'Question1',
+				id: 'question',
+				title: 'Question',
 				type: 'collapse',
 				icon: 'error',
+				url: '/admin/question',
 				children: [
 					{
-						id: '404',
-						title: 'Questions1',
+						id: 'questionDetail',
+						title: 'Questions',
 						type: 'item',
-						url: '/pages/errors/error-404',
+						url: '/admin/question/items',
 						exact: true
 					},
 					{
-						id: '500',
-						title: 'Add New Question1',
+						id: 'add_question',
+						title: 'Add New Question',
 						type: 'item',
-						url: '/pages/errors/error-500',
+						url: '/admin/question/items/new',
 						exact: true
 					}
 				]
-			},
-			{
-				id: 'question2',
-				title: 'Quesion2',
-				type: 'collapse',
-				icon: 'receipt',
-				children: [
-					{
-						id: 'modern',
-						title: 'Questions2',
-						type: 'item',
-						url: '/pages/invoices/modern'
-					},
-					{
-						id: 'compact',
-						title: 'Add New Question2',
-						type: 'item',
-						url: '/pages/invoices/compact'
-					}
-				]
-			}			
+			}		
 		]
 	},
 	{
