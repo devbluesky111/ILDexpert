@@ -36,7 +36,7 @@ const rows = [
 		disablePadding: false,
 		label: 'Date',
 		sort: true
-	}	
+	}
 ];
 
 const useStyles = makeStyles(theme => ({

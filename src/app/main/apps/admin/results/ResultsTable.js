@@ -187,11 +187,11 @@ function ResultsTable(props) {
 										</TableCell>
 
 										<TableCell className="text-center" component="th" scope="row">
-											{n.selected_questions.split('|')[0]}
+											{n.selected_questions? n.selected_questions.split('|')[0] : ''}
 										</TableCell>
 
 										<TableCell className="text-center" component="th" scope="row">
-											{n.selected_questions.split('|')[1]}
+											{n.selected_questions? n.selected_questions.split('|')[1] : ''}
 										</TableCell>
 
 										<TableCell className="text-center" component="th" scope="row">
