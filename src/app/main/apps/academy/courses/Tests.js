@@ -88,7 +88,6 @@ function Tests(props) {
 			let imageInterval = imageModalEndTime - imageModalStartTime;
 			axios.post(Backend.URL + '/add_image_interval', {'selectedCaseId': selectedCaseId,'email':user.data.email,'imageInterval':imageInterval }, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} })
 			.then((res) => {
-				console.log('id', res.data.id);
 				setInsertedId(res.data.id);
 				setImageModalStartTime(null);
 				setImageModalEndTime(null);
@@ -113,13 +112,11 @@ function Tests(props) {
 	};
 	useEffect(() => {
 		if(questionModalStartTime && questionModalEndTime) {
-			console.log('axios post', questionModalStartTime, questionModalEndTime);
 			let questionInterval = questionModalEndTime - questionModalStartTime;
 			axios.post(Backend.URL + '/add_question_interval', {'id': insertedId, 'questionInterval':questionInterval }, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} })
 			.then(() => {
 				setQuestionModalStartTime(null);
 				setQuestionModalEndTime(null);
-				console.log('add_question_intervel finished');
 			})
 			.catch((err) => {
 				console.log(err);
