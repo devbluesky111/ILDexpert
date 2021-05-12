@@ -17,26 +17,68 @@ import React, { useState } from 'react';
 
 const rows = [
 	{
-		id: 'question_id',
+		id: 'result_id',
 		align: 'center',
 		disablePadding: false,
 		label: 'ID',
 		sort: true
 	},
 	{
-		id: 'question',
-		align: 'left',
+		id: 'user_name',
+		align: 'center',
 		disablePadding: false,
-		label: 'Question',
+		label: 'User Name',
+		sort: true
+	},
+	{
+		id: 'identity',
+		align: 'center',
+		disablePadding: false,
+		label: 'Study Level',
+		sort: true
+	},
+	{
+		id: 'cases',
+		align: 'center',
+		disablePadding: false,
+		label: 'Case Subject',
+		sort: true
+	},
+	{
+		id: 'imageShowTime',
+		align: 'center',
+		disablePadding: false,
+		label: 'Image Observation Time',
+		sort: true
+	},
+	{
+		id: 'questionShowTime',
+		align: 'center',
+		disablePadding: false,
+		label: 'Question Selection Time',
+		sort: true
+	},
+	{
+		id: 'questionOne',
+		align: 'center',
+		disablePadding: false,
+		label: 'First Question',
+		sort: true
+	},
+	{
+		id: 'questionTwo',
+		align: 'center',
+		disablePadding: false,
+		label: 'Second Question',
 		sort: true
 	},
 	{
 		id: 'date',
-		align: 'left',
+		align: 'center',
 		disablePadding: false,
 		label: 'Date',
 		sort: true
-	}	
+	}
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -45,7 +87,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function QuestionsTableHead(props) {
+function ProductsTableHead(props) {
 	const classes = useStyles(props);
 	const { selectedProductIds } = props;
 	const numSelected = selectedProductIds.length;
@@ -66,7 +108,7 @@ function QuestionsTableHead(props) {
 
 	return (
 		<TableHead>
-			<TableRow className="h-44">
+			<TableRow className="h-64">
 				<TableCell padding="none" className="w-40 md:w-64 text-center z-99">
 					<Checkbox
 						indeterminate={numSelected > 0 && numSelected < props.rowCount}
@@ -142,4 +184,4 @@ function QuestionsTableHead(props) {
 	);
 }
 
-export default QuestionsTableHead;
+export default ProductsTableHead;

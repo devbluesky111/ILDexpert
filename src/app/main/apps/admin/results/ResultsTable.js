@@ -8,16 +8,16 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FuseAnimate from '@fuse/core/FuseAnimate/FuseAnimate';
-import QuestionsTableHead from './QuestionsTableHead';
+import ResultsTableHead from './ResultsTableHead';
+import Moment from 'react-moment';
 import Backend from '@utils/BackendUrl';
 import axios from 'axios';
-import Moment from 'react-moment';
-import { withRouter } from 'react-router-dom';
 
-function QuestionsTable(props) {
-	const [questions, setQuestions] = useState([]);
+function ResultsTable(props) {
+	const [results, setResults] = useState([]);
 
 	const [loading, setLoading] = useState(true);
 	const [selected, setSelected] = useState([]);
@@ -31,8 +31,8 @@ function QuestionsTable(props) {
 
 	const init = async () => {
 		setLoading(true);
-		const res = await axios.post(Backend.URL + '/get_question_one', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
-		setQuestions(res.data);
+		const res = await axios.post(Backend.URL + '/get_results', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
+		setResults(res.data);
 		setLoading(false);
 	}
 
@@ -41,8 +41,8 @@ function QuestionsTable(props) {
 	}, []);
 
 	useEffect(() => {
-		setData(questions);
-	}, [questions]);
+		setData(results);
+	}, [results]);
 
 	function handleRequestSort(event, property) {
 		const id = property;
@@ -66,18 +66,8 @@ function QuestionsTable(props) {
 		setSelected([]);
 	}
 
-	async function handleDeselect() {
-		const resp = await axios.post(Backend.URL + '/delete_question', {ids: selected}, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
-		if (resp.data.ids) {
-			setLoading(true);
-			init();
-			setLoading(false);
-		}
+	function handleDeselect() {
 		setSelected([]);
-	}
-
-	function handleClick(item) {
-		props.history.push(`/admin/question/items/${item.id}`);
 	}
 
 	function handleCheck(event, id) {
@@ -114,7 +104,7 @@ function QuestionsTable(props) {
 			<FuseAnimate delay={100}>
 				<div className="flex flex-1 items-center justify-center h-full">
 					<Typography color="textSecondary" variant="h5">
-						There are no Questions!
+						There are no Results!
 					</Typography>
 				</div>
 			</FuseAnimate>
@@ -125,7 +115,7 @@ function QuestionsTable(props) {
 		<div className="w-full flex flex-col">
 			<FuseScrollbars className="flex-grow overflow-x-auto">
 				<Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
-					<QuestionsTableHead
+					<ResultsTableHead
 						selectedProductIds={selected}
 						order={order}
 						onSelectAllClick={handleSelectAllClick}
@@ -156,14 +146,13 @@ function QuestionsTable(props) {
 								const isSelected = selected.indexOf(n.id) !== -1;
 								return (
 									<TableRow
-										className="h-40 cursor-pointer"
+										className="h-48 cursor-pointer"
 										hover
 										role="checkbox"
 										aria-checked={isSelected}
 										tabIndex={-1}
 										key={n.id}
 										selected={isSelected}
-										onClick={event => handleClick(n)}
 									>
 										<TableCell className="w-40 md:w-64 text-center" padding="none">
 											<Checkbox
@@ -177,11 +166,35 @@ function QuestionsTable(props) {
 											{n.id}
 										</TableCell>
 
-										<TableCell className="text-left" component="th" scope="row">
-											{n.question_one}
+										<TableCell className="text-center" component="th" scope="row">
+											{n.name}
 										</TableCell>
 
-										<TableCell className="text-left" component="th" scope="row">
+										<TableCell className="text-center" component="th" scope="row">
+											{n.identity}
+										</TableCell>
+
+										<TableCell className="text-center" component="th" scope="row">
+											{n.subject}
+										</TableCell>
+
+										<TableCell className="text-center" component="th" scope="row">
+											{n.image_show_time}
+										</TableCell>
+
+										<TableCell className="text-center" component="th" scope="row">
+											{n.question_show_time}
+										</TableCell>
+
+										<TableCell className="text-center" component="th" scope="row">
+											{n.selected_questions.split('|')[0]}
+										</TableCell>
+
+										<TableCell className="text-center" component="th" scope="row">
+											{n.selected_questions.split('|')[1]}
+										</TableCell>
+
+										<TableCell className="text-center" component="th" scope="row">
 											<Moment format="YYYY-MM-DD">{n.created}</Moment>
 										</TableCell>
 									</TableRow>
@@ -210,4 +223,4 @@ function QuestionsTable(props) {
 	);
 }
 
-export default withRouter(QuestionsTable);
+export default withRouter(ResultsTable);

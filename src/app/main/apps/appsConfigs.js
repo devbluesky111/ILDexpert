@@ -1,5 +1,4 @@
 import AcademyAppConfig from './academy/AcademyAppConfig';
-// import TestAppConfig from './calendar/TestAppConfig';
 import ChatAppConfig from './chat/ChatAppConfig';
 import ContactsAppConfig from './contacts/ContactsAppConfig';
 import AnalyticsDashboardAppConfig from './dashboards/analytics/AnalyticsDashboardAppConfig';
@@ -11,6 +10,7 @@ import ScrumboardAppConfig from './scrumboard/ScrumboardAppConfig';
 import TodoAppConfig from './todo/TodoAppConfig';
 import CasesAppConfig from './admin/cases/CasesAppConfig';
 import QuestionsAppConfig from './admin/questions/QuestionsAppConfig';
+import ResultsAppConfig from './admin/results/ResultsAppConfig';
 
 const appsConfigs = [
 	AnalyticsDashboardAppConfig,
@@ -18,14 +18,14 @@ const appsConfigs = [
 	MailAppConfig,
 	TodoAppConfig,
 	ContactsAppConfig,
-	// TestAppConfig,
 	ChatAppConfig,
 	ECommerceAppConfig,
 	ScrumboardAppConfig,
 	AcademyAppConfig,
 	NotesAppConfig,
 	CasesAppConfig,
-	QuestionsAppConfig
+	QuestionsAppConfig,
+	ResultsAppConfig
 ];
 
 export default appsConfigs;

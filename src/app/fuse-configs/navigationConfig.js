@@ -80,7 +80,7 @@ const navigationConfig = [
 		type: 'group',
 		icon: 'person',
 		auth: authRoles.admin,
-		url: '/pages/profile'
+		url: '/admin/result'
 	}
 ];
 
