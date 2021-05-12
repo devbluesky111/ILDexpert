@@ -31,7 +31,7 @@ function ImageDialog(props) {
 					</Typography>
 					<IconButton
 						className="min-w-auto"
-						onClick={props.onClose}
+						onClick={() => props.onClose(props.selected.selectedId)}
 					>
 						<Icon>close</Icon>
 					</IconButton>

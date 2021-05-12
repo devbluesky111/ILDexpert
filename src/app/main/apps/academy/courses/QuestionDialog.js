@@ -11,6 +11,8 @@ import Radio from '@material-ui/core/Radio';
 import Formsy from 'formsy-react';
 import Button from '@material-ui/core/Button';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
+import Backend from '@utils/BackendUrl';
+import axios from 'axios';
 
 function QuestionDialog(props) {
 
@@ -26,8 +28,16 @@ function QuestionDialog(props) {
 	}
 
 	function handleSubmit(model) {
-		console.log('model===>', model, props.questionOneData.id);
-		props.onClose();
+		console.log('model===>', model, props.inserted);
+		axios.post(Backend.URL + '/add_selected_questions', {'id': props.inserted, 'selectedQuestions':model }, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} })
+		.then(() => {
+			console.log('Selected questions inserted successfully');
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+		props.onClose(props.selected.selectedButtonId);
+		
 	}
 
 

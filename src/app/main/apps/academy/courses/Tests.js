@@ -15,7 +15,7 @@ import Backend from '@utils/BackendUrl';
 import axios from 'axios';
 import ImageDialog from './ImageDialog';
 import QuestionDialog from './QuestionDialog';
-
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
 	header: {
@@ -41,9 +41,10 @@ const useStyles = makeStyles(theme => ({
 function Tests(props) {
 
 	const classes = useStyles(props);
+	const user = useSelector(({ auth }) => auth.user);
 	const [imageModalShow, setImageModalShow] = useState(false);
-	const [imageModalStartTime, setImageModalStartTime] = useState('');
-	const [imageModalEndTime, setImageModalEndTime] = useState('');
+	const [imageModalStartTime, setImageModalStartTime] = useState(null);
+	const [imageModalEndTime, setImageModalEndTime] = useState(null);
 	const [questionModalShow, setQuestionModalShow] = useState(false);
 	const [questionModalStartTime, setQuestionModalStartTime] = useState('');
 	const [questionModalEndTime, setQuestionModalEndTime] = useState('');
@@ -52,20 +53,19 @@ function Tests(props) {
 	const [selectedButton, setSelectedButton] = useState({selectedButtonId:'',selectedButtonSubject:''});
 	const [questionOnes, setQuestionOnes] = useState([]);
 	const [questionTwos, setQuestionTwos] = useState([]);
+	const [selectedCaseId, setSelectedCaseId] = useState('');
+	const [insertedId, setInsertedId] = useState('');
+	
 
 
 	const init = async () => {
-		// setLoading(true);
 		const res = await axios.post(Backend.URL + '/get_cases', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
 		const res_one = await axios.post(Backend.URL + '/get_question_one', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
 		const res_two = await axios.post(Backend.URL + '/get_question_two', { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
 		setCases(res.data);
 		setQuestionOnes(res_one.data);
 		setQuestionTwos(res_two.data);
-		// setLoading(false);
 	}
-	// console.log('question_one', questionOnes);
-	// console.log('question_two', questionTwos);
 
 	useEffect(() => {
 		init();
@@ -77,17 +77,28 @@ function Tests(props) {
 		setSelectedCard({...selectedId, ...selectedSubject, ...selectedApiURL});
 		setImageModalShow(true);
 	};
-	const handleImageModalClose = () => {
+	const handleImageModalClose = (id) => {
+		setSelectedCaseId(id);
 		setImageModalEndTime(new Date());
 		setImageModalShow(false);
-
 	};
-	if(imageModalStartTime && imageModalEndTime) {
-		let imageInterval = imageModalEndTime - imageModalStartTime;
-		console.log('image_interval', imageInterval);
-		setImageModalStartTime(null);
-		setImageModalEndTime(null);
-	}
+
+	useEffect(() => {
+		if(imageModalStartTime && imageModalEndTime) {
+			let imageInterval = imageModalEndTime - imageModalStartTime;
+			axios.post(Backend.URL + '/add_image_interval', {'selectedCaseId': selectedCaseId,'email':user.data.email,'imageInterval':imageInterval }, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} })
+			.then((res) => {
+				console.log('id', res.data.id);
+				setInsertedId(res.data.id);
+				setImageModalStartTime(null);
+				setImageModalEndTime(null);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+		}
+	}, [imageModalStartTime, imageModalEndTime, selectedCaseId, user.data.email])
+	
 
 	// Handle multi-choice modal showing time
 	const handleQuestionModalOpen = (selectedButtonId, selectedButtonSubject) => {
@@ -95,16 +106,26 @@ function Tests(props) {
 		setSelectedButton({...selectedButtonId, ...selectedButtonSubject});
 		setQuestionModalShow(true);
 	};
-	const handleQuestionModalClose = () => {
+	const handleQuestionModalClose = (id) => {
+		setSelectedCaseId(id);
 		setQuestionModalEndTime(new Date());
 		setQuestionModalShow(false);
 	};
-	if(questionModalStartTime && questionModalEndTime) {
-		let questionInterval = questionModalEndTime - questionModalStartTime;
-		console.log('question_interval', questionInterval);
-		setQuestionModalStartTime(null);
-		setQuestionModalEndTime(null);
-	}
+	useEffect(() => {
+		if(questionModalStartTime && questionModalEndTime) {
+			console.log('axios post', questionModalStartTime, questionModalEndTime);
+			let questionInterval = questionModalEndTime - questionModalStartTime;
+			axios.post(Backend.URL + '/add_question_interval', {'id': insertedId, 'questionInterval':questionInterval }, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} })
+			.then(() => {
+				setQuestionModalStartTime(null);
+				setQuestionModalEndTime(null);
+				console.log('add_question_intervel finished');
+			})
+			.catch((err) => {
+				console.log(err);
+			});		
+		}
+	}, [questionModalStartTime, questionModalEndTime, insertedId])
 
 	return (
 		<div className="flex flex-col flex-auto flex-shrink-0 w-full">
@@ -208,6 +229,7 @@ function Tests(props) {
 				questionOneData={questionOnes}
 				questionTwoData={questionTwos}
 				selected={selectedButton}
+				inserted={insertedId}
 			/>
 		</div>
 	);
