@@ -84,7 +84,7 @@ function Login() {
 					role: 'user',
 					data: {
 						displayName: user_data.name,
-						photoURL: 'assets/images/avatars/Arnold.jpg',
+						photoURL: 'assets/images/avatars/avatar.png',
 						email: user_data.email,
 						settings: {
 						layout: {
@@ -123,7 +123,7 @@ function Login() {
 					role: 'admin',
 					data: {
 						displayName: user_data.name,
-						photoURL: 'assets/images/avatars/Abbott.jpg',
+						photoURL: 'assets/images/avatars/avatar.png',
 						email: user_data.email,
 						settings: {
 						layout: {

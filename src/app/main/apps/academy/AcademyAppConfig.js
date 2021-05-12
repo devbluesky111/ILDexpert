@@ -7,10 +7,6 @@ const AcademyAppConfig = {
 	},
 	routes: [
 		{
-			path: '/apps/test/courses/:courseId',
-			component: React.lazy(() => import('./course/Course'))
-		},
-		{
 			path: '/apps/test/courses',
 			component: React.lazy(() => import('./courses/Tests'))
 		},

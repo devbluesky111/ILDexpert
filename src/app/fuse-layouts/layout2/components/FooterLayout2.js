@@ -19,7 +19,7 @@ function FooterLayout2(props) {
 			>
 				<Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
 					<div className="flex flex-grow flex-shrink-0">
-						<a href="https://www.6patterns.org/" style={{textDecoration:'none',color:'#42A5F5'}}>Go to 6patterns.org</a>
+						<a href="https://www.6patterns.org/" style={{textDecoration:'none',color:'#42A5F5',fontSize:'18px'}}><small>Go to </small><i>6patterns.org</i></a>
 					</div>
 
 					<div className="flex flex-grow flex-shrink-0 px-12 justify-end">

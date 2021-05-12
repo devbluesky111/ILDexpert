@@ -138,7 +138,7 @@ const initialState = {
 	role: [], // guest
 	data: {
 		displayName: 'Get Started',
-		photoURL: 'assets/images/avatars/Velazquez.jpg',
+		photoURL: 'assets/images/avatars/avatar.png',
 		email: 'johndoe@withinpixels.com',
 		shortcuts: ['calendar', 'mail', 'contacts', 'todo']
 	}
