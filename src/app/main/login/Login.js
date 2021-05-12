@@ -46,6 +46,7 @@ function Login() {
 	const [showPassword, setShowPassword] = useState(false);
 
 	const formRef = useRef(null);
+	// const [user, setUser] = useState();
 
 	useEffect(() => {
 		if (login.error && (login.error.email || login.error.password)) {
@@ -71,10 +72,16 @@ function Login() {
 		} else {
 			let user_data, user;
 			user_data = res.data.data[0];
-			if(user_data.role === 'staff') {
+			
+			// set the state of the user
+			// setUser(user_data);
+			// store the user in localStorage
+			// localStorage.setItem('user', user_data.email);
+
+			if(user_data.role === 'user') {
 				user = {
 					password: user_data.password,
-					role: 'User',
+					role: 'user',
 					data: {
 						displayName: user_data.name,
 						photoURL: 'assets/images/avatars/Arnold.jpg',
