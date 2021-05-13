@@ -76,17 +76,16 @@ export const logoutUser = () => async (dispatch, getState) => {
 		// is guest
 		return null;
 	}
-	console.log('log out..........');
+
+	history.push({
+		pathname: '/'
+	});
+
 	const res = await axios.post(Backend.URL + '/logout', {params: 'logout'}, { withCredentials: true, headers: {"Access-Control-Allow-Origin": "*"} });
 	if(res.data.status === 'success') {
-		console.log('successed.........');
-		window.location.href = process.env.PUBLIC_URL + "/";
-	}
-	console.log('not successed........');
-
-	dispatch(setInitialSettings());
-
-	return dispatch(userLoggedOut());
+		dispatch(setInitialSettings());
+		return dispatch(userLoggedOut());	
+	}	
 };
 
 export const updateUserData = user => async (dispatch, getState) => {

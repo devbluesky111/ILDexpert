@@ -72,16 +72,10 @@ function Login() {
 		} else {
 			let user_data, user;
 			user_data = res.data.data[0];
-			
-			// set the state of the user
-			// setUser(user_data);
-			// store the user in localStorage
-			// localStorage.setItem('user', user_data.email);
-
-			if(user_data.role === 'user') {
+			if(user_data.role === 'staff') {
 				user = {
 					password: user_data.password,
-					role: 'user',
+					role: 'staff',
 					data: {
 						displayName: user_data.name,
 						photoURL: 'assets/images/avatars/avatar.png',
