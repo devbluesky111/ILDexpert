@@ -1,9 +1,10 @@
 /**
  * Authorization Roles
  */
-const authRoles = {
+ const authRoles = {
 	admin: ['admin'],
-	user: ['user'],
+	staff: ['admin', 'staff'],
+	user: ['admin', 'staff', 'user'],
 	onlyGuest: []
 };
 
