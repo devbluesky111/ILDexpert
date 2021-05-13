@@ -15,7 +15,7 @@ const navigationConfig = [
 		title: 'Have a test',
 		translate: 'Have a test',
 		type: 'group',
-		auth: authRoles.user,
+		auth: authRoles.staff,
 		icon: 'apps',
 		url: '/apps/test'
 	},

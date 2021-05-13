@@ -9,7 +9,7 @@ function Results() {
 			classes={{
 				content: 'flex',
 				contentCard: 'overflow-hidden',
-				header: 'min-h-48 h-48 sm:h-96 sm:min-h-96'
+				header: 'min-h-48 h-48 sm:h-80 sm:min-h-80'
 			}}
 			header={<ResultsHeader />}
 			content={<ResultsTable />}

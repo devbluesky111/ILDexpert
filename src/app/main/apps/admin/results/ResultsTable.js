@@ -146,7 +146,7 @@ function ResultsTable(props) {
 								const isSelected = selected.indexOf(n.id) !== -1;
 								return (
 									<TableRow
-										className="h-48 cursor-pointer"
+										className="h-36 cursor-pointer"
 										hover
 										role="checkbox"
 										aria-checked={isSelected}
