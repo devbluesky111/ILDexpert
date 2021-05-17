@@ -6,9 +6,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Radio from '@material-ui/core/Radio';
 import React from 'react';
 
 function ImageDialog(props) {
@@ -40,23 +40,6 @@ function ImageDialog(props) {
 
 			<DialogContent classes={{ root: 'p-0' }}>
 				<div className="mb-16">
-					<div className="px-12">
-						<div className="flex justify-center">
-							<RadioGroup
-								className="mt-16"
-								name="reading case"
-								variant="outlined"
-								color="primary"
-								row
-								// validations="equals:female"
-								// validationError="Only ladies are accepted"
-								required
-							>
-								<FormControlLabel value="pretest" control={<Radio color="primary"/>} label="Pretest reading" style={{marginRight:"100px"}}/>
-								<FormControlLabel value="posttest" control={<Radio color="primary"/>} label="Posttest reading"/>
-							</RadioGroup>							
-						</div>
-					</div>
 					<div className="p-6">
 						<div className="flex justify-center">
 							<img src={props.selected.selectedApiURL} alt={props.selected.selectedSubject} style={{width:'auto',height:'780px'}}/>

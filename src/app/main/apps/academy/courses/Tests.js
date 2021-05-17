@@ -11,6 +11,9 @@ import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import React, { useEffect, useMemo, useState } from 'react';
 import reducer from '../store';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
 import Backend from '@utils/BackendUrl';
 import axios from 'axios';
 import ImageDialog from './ImageDialog';
@@ -147,6 +150,24 @@ function Tests(props) {
 				<Icon className={classes.headerIcon}> school </Icon>
 			</div>
 			<div className="flex flex-col flex-1 max-w-2xl w-full mx-auto px-8 sm:px-16 py-16">
+				<div className="px-12">
+					<div className="flex justify-center">
+						<RadioGroup
+							className="mt-16"
+							name="reading case"
+							variant="outlined"
+							color="primary"
+							defaultValue="pretest"
+							row
+							// validations="equals:female"
+							// validationError="Only ladies are accepted"
+							required
+						>
+							<FormControlLabel value="pretest" control={<Radio color="primary"/>} label="Pretest reading" style={{marginRight:"35px"}}/>
+							<FormControlLabel value="posttest" control={<Radio color="primary"/>} label="Posttest reading"/>
+						</RadioGroup>							
+					</div>
+				</div>
 				{useMemo(
 					() =>
 						cases &&
