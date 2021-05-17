@@ -6,19 +6,19 @@ const themesConfig = {
 		palette: {
 			type: 'light',
 			primary: {
-				light: '#FFFAF6',
-				main: '#FFEDE2',
-				dark: '#FFE0CF'
+				light: '#BBE2DA',
+				main: '#1B9E85',
+				dark: '#087055'
 			},
 			secondary: {
-				light: '#DBD8F7',
-				main: '#887CE3',
-				dark: '#584CD0',
-				contrastText: '#FFFFFF'
+				light: '#FFD0C1',
+				main: '#FF6231',
+				dark: '#FF3413',
+				contrastText: '#FFF'
 			},
 			background: {
 				paper: '#FFFFFF',
-				default: '#FCF8F5'
+				default: '#F2F8F1'
 			},
 			error: red
 		},
