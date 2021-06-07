@@ -34,14 +34,14 @@ const rows = [
 		id: 'identity',
 		align: 'center',
 		disablePadding: false,
-		label: 'Study Level',
+		label: 'Case Number',
 		sort: true
 	},
 	{
 		id: 'cases',
 		align: 'center',
 		disablePadding: false,
-		label: 'Case Subject',
+		label: 'Subject Expertise Level',
 		sort: true
 	},
 	{
@@ -62,14 +62,14 @@ const rows = [
 		id: 'questionOne',
 		align: 'center',
 		disablePadding: false,
-		label: 'First Question',
+		label: 'PreTest Diagnosis',
 		sort: true
 	},
 	{
 		id: 'questionTwo',
 		align: 'center',
 		disablePadding: false,
-		label: 'Second Question',
+		label: 'PreTest Diagnosis Confidence Level',
 		sort: true
 	},
 	{

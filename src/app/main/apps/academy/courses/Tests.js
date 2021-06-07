@@ -136,13 +136,13 @@ function Tests(props) {
 				)}
 			>
 				<FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
-					<Typography color="inherit" className="text-24 sm:text-32 font-light">
-						WELCOME TO ILDexpert Pilot Study!
+					<Typography color="textPrimary" className="text-24 sm:text-32 font-light">
+						Welcome to the ILDexpert Pilot Study!
 					</Typography>
 				</FuseAnimate>
 				<FuseAnimate duration={400} delay={600}>
-					<Typography variant="subtitle1" color="inherit" className="mt-8 sm:mt-16 mx-auto max-w-512">
-						<span className="opacity-75">
+					<Typography variant="subtitle1" color="textPrimary" className="mt-8 sm:mt-16 mx-auto max-w-512">
+						<span className="opacity-85">
 							Click the thumbnails to see the full image and then click the button below to see multiple choice questionaire.							
 						</span>
 					</Typography>

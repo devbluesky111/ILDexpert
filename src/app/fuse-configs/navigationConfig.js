@@ -12,8 +12,8 @@ i18next.addResourceBundle('ar', 'navigation', ar);
 const navigationConfig = [
 	{
 		id: 'applications',
-		title: 'Have a test',
-		translate: 'Have a test',
+		title: 'Take a test',
+		translate: 'Take a test',
 		type: 'group',
 		auth: authRoles.staff,
 		icon: 'apps',

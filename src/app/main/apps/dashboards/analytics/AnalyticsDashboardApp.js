@@ -20,7 +20,7 @@ function AnalyticsDashboardApp() {
 				backgroundColor:'#1B9E85'
 		}}>
 			<FuseAnimate animation="transition.slideUpIn" delay={200}>
-				<div className="flex p-60 container">
+				<div className="flex p-60 container ">
 					<div className="flex flex-1 flex-col min-w-0">
 						<FuseAnimate delay={600}>
 							<Typography className="p-16 pb-8 text-48 font-300">
@@ -29,7 +29,7 @@ function AnalyticsDashboardApp() {
 						</FuseAnimate>
 						<FuseAnimate delay={600}>
 							<Typography className="p-16 pb-8 text-24 font-300">
-								Please register (or login) and review the 10 ILD Aperio cases. If you are a study participant, please review all 10 cases and answer the case questions (Pretest) before downloading the ILDexpert app on your mobile device. On the second review of the 10 cases (Posttest) you will use the app to guide you to the best diagnosis. Please try to complete any given case analysis without interruption, if possible.
+								If you are a study participant, please review all the 10 ILD Aperio cases and answer the case questions (Pretest) before downloading the ILDexpert app on your mobile device.<br/> On the second review of the 10 cases (Posttest) you will use the app to guide you to the best diagnosis. <br/> Please try to complete any given case analysis without interruption, if possible.
 							</Typography>
 						</FuseAnimate>
 					</div>
