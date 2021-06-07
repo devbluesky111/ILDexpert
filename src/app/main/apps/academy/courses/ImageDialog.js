@@ -42,7 +42,7 @@ function ImageDialog(props) {
 				<div className="mb-16">
 					<div className="p-6">
 						<div className="flex justify-center">
-							<img src={props.selected.selectedApiURL} alt={props.selected.selectedSubject} style={{width:'auto',height:'780px'}}/>
+							<iframe src={props.selected.selectedApiURL} title={props.selected.selectedSubject} style={{width:'100%',height:'780px'}}></iframe>							
 						</div>
 					</div>
 					<Divider className="mx-24" />

@@ -208,6 +208,7 @@ function Register() {
 										<MenuItem value="training">I am a Pathologist in training (resident or fellow)</MenuItem>
 										<MenuItem value="general">I am a general Pathologist</MenuItem>
 										<MenuItem value="pulmonary">I am a pulmonary Pathologist</MenuItem>
+										<MenuItem value="referee">I am a referee</MenuItem>
 									</SelectFormsy>
 
 									<Button
